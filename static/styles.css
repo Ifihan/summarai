@@ -1,0 +1,447 @@
+/* static/css/styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Theme Variables */
+.light-theme {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --text-secondary: #666666;
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --button-bg: #e0e0e0;
+    --button-hover: #d0d0d0;
+    --textarea-border: #e0e0e0;
+    --result-bg: #f8fafc;
+    --result-border: #e2e8f0;
+}
+
+.dark-theme {
+    --bg-color: #0f172a;
+    --text-color: #ffffff;
+    --text-secondary: #94a3b8;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --button-bg: #1e293b;
+    --button-hover: #334155;
+    --textarea-border: #1e293b;
+    --result-bg: #1e293b;
+    --result-border: #334155;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 100;
+}
+
+#theme-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+#theme-button:hover {
+    transform: scale(1.1);
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.subtitle {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    margin-bottom: 4rem;
+    color: var(--text-secondary);
+}
+
+.input-container {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 1rem;
+    border: 1px solid var(--textarea-border);
+    border-radius: 12px;
+    resize: none;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.action-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.action-button i {
+    font-size: 1.1rem;
+}
+
+.result-container {
+    display: none;
+    margin-top: 3rem;
+    background-color: var(--result-bg);
+    border: 1px solid var(--result-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--result-border);
+}
+
+.result-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.result-content {
+    padding: 1.5rem;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+    line-height: 1.6;
+}
+
+.copy-button {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.copy-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.slide-in {
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    0% { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.typewriter {
+    border-right: 2px solid var(--text-color);
+    animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: var(--text-color); }
+}
+
+/* Loading animation */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
+
+.loading::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--button-bg);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1, .subtitle {
+        font-size: 2.5rem;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .action-button {
+        width: 100%;
+        justify-content: center;
+    }
+    .logo {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+    }
+}
+
+/* Logo */
+
+.logo {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    background: linear-gradient(45deg, var(--primary-color), var(--text-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+    letter-spacing: -0.5px;
+}
+
+.logo-text:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Markdown Styling */
+.result-content h1, 
+.result-content h2, 
+.result-content h3 {
+    color: var(--text-color);
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.result-content p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.result-content ul, 
+.result-content ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.result-content li {
+    margin-bottom: 0.5rem;
+}
+
+.result-content code {
+    background-color: rgba(27,31,35,0.05);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.result-content pre {
+    background-color: rgba(27,31,35,0.05);
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.result-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    color: var(--text-secondary);
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+/* Improved styling for unordered lists */
+.result-content ul {
+    list-style-type: disc; /* Standard bullet points */
+    padding-left: 1.5rem; /* Indentation for list items */
+    margin-top: 1rem; /* Add space above the list */
+    margin-bottom: 1rem; /* Add space below the list */
+}
+
+/* Specific styles for list items */
+.result-content li {
+    margin: 0.25rem 0; /* Reduce spacing between items */
+    line-height: 1.5; /* Improve readability */
+}
+
+/* Nested list styles */
+.result-content ul ul {
+    list-style-type: circle; /* Change style for nested lists */
+    margin-left: 1.5rem; /* Additional indentation for nested lists */
+}
+
+.result-content ul ul li {
+    margin: 0.2rem 0; /* Tighter spacing for nested items */
+    line-height: 1.4; /* Consistent line height */
+}
+
+/* Optional: Remove weird empty bullets */
+.result-content li:empty {
+    display: none;
+}
+
+/* Remove empty paragraphs and list items */
+.result-content p:empty,
+.result-content li:empty,
+.result-content h2:empty,
+.result-content h3:empty {
+    display: none;
+}
+
+/* Adjust margin and padding to reduce excessive spacing */
+.result-content p {
+    margin: 0.5rem 0;
+}
+
+.result-content h2, 
+.result-content h3 {
+    margin: 1rem 0 0.5rem;
+    font-weight: bold;
+    text-align: left;
+    color: var(--primary-color);
+}
+
+/* List item styling */
+.result-content ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.result-content li {
+    margin: 0.25rem 0;
+    line-height: 1.5;
+}
+
+/* Additional fix to avoid large gaps in nested lists */
+.result-content ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.result-content ul ul li {
+    margin: 0.2rem 0;
+}
+
+/* Optional: Ensure headings are not excessively spaced */
+.result-content h1, 
+.result-content h2, 
+.result-content h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
