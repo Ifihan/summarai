@@ -8,53 +8,56 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body class="light-theme">
-    <div class="logo">
-        <a href="/" class="logo-text">SummarAI</a>
-    </div>
-    <div class="theme-toggle">
-        <button id="theme-button">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
-
-    <div class="container">
-        <h1>Welcome to</h1>
-        <div class="subtitle">Document Analyzer</div>
-        <div class="tagline" id="tagline"></div>
-        
-        <div class="input-container">
-            <textarea id="text-input" placeholder="Paste text here..."></textarea>
+    <header class="fixed-header">
+        <div class="logo">
+            <a href="/" class="logo-text">SummarAI</a>
         </div>
-
-        <div class="buttons-container">
-            <button class="action-button" data-action="summarize">
-                <i class="fas fa-compress-alt"></i>
-                Summarize
-            </button>
-            <button class="action-button" data-action="extract-key-points">
-                <i class="fas fa-list"></i>
-                Extract Key Points
-            </button>
-            <button class="action-button" data-action="analyze">
-                <i class="fas fa-chart-bar"></i>
-                Analyze
+        <div class="theme-toggle">
+            <button id="theme-button">
+                <i class="fas fa-moon"></i>
             </button>
         </div>
+    </header>
 
-        <div class="result-container" id="result-container">
-            <div class="result-header">
-                <h2>Result</h2>
-                <button class="copy-button" id="copy-button">
-                    <i class="fas fa-copy"></i>
-                    Copy
+    <main class="main-content">
+        <div class="container">
+            <h1>Welcome to</h1>
+            <div class="subtitle">Document Analyzer</div>
+            <div class="tagline" id="tagline"></div>
+            
+            <div class="input-container">
+                <textarea id="text-input" placeholder="Paste text here..."></textarea>
+            </div>
+
+            <div class="buttons-container">
+                <button class="action-button" data-action="summarize">
+                    <i class="fas fa-compress-alt"></i>
+                    Summarize
+                </button>
+                <button class="action-button" data-action="extract-key-points">
+                    <i class="fas fa-list"></i>
+                    Extract Key Points
+                </button>
+                <button class="action-button" data-action="analyze">
+                    <i class="fas fa-chart-bar"></i>
+                    Analyze
                 </button>
             </div>
-            <div class="result-content" id="result-text"></div>
+
+            <div class="result-container" id="result-container">
+                <div class="result-header">
+                    <h2>Result</h2>
+                    <button class="copy-button" id="copy-button">
+                        <i class="fas fa-copy"></i>
+                        Copy
+                    </button>
+                </div>
+                <div class="result-content" id="result-text"></div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 </body>
 </html>
