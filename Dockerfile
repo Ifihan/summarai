@@ -5,13 +5,10 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt requirements.txt
+COPY . /app
 
 # Install necessary dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy all necessary files into the container
-COPY . .
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -21,4 +18,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Run the application with gunicorn for production readiness
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080", "--workers", "4"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080"]
