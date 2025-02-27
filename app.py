@@ -34,10 +34,10 @@ def analyzer_page():
 def summarize_text():
     text = request.json.get("text", "")
     response = client.models.generate_content(
-        model="gemini-2.0-flash-001",
+        model=os.getenv("GEN_AI_MODEL_NAME"),
         contents=text,
         config=types.GenerateContentConfig(
-            system_instruction="Summarize the provided text.", max_output_tokens=100
+            system_instruction="Summarize the provided text.", max_output_tokens=2000
         ),
     )
     return jsonify({"summary": response.text})
@@ -48,11 +48,11 @@ def summarize_text():
 def extract_key_points():
     text = request.json.get("text", "")
     response = client.models.generate_content(
-        model="gemini-2.0-flash-001",
+        model=os.getenv("GEN_AI_MODEL_NAME"),
         contents=text,
         config=types.GenerateContentConfig(
             system_instruction="Extract key points from the provided text.",
-            max_output_tokens=150,
+            max_output_tokens=2000,
         ),
     )
     return jsonify({"key_points": response.text})
@@ -63,11 +63,11 @@ def extract_key_points():
 def analyze_text():
     text = request.json.get("text", "")
     response = client.models.generate_content(
-        model="gemini-2.0-flash-001",
+        model=os.getenv("GEN_AI_MODEL_NAME"),
         contents=text,
         config=types.GenerateContentConfig(
             system_instruction="Provide an in-depth analysis of the provided text.",
-            max_output_tokens=200,
+            max_output_tokens=2000,
         ),
     )
     return jsonify({"analysis": response.text})
