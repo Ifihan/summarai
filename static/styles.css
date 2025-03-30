@@ -119,6 +119,7 @@ h1 {
 .input-container {
     margin-bottom: 2rem;
     width: 100%;
+    position: relative;
 }
 
 textarea {
@@ -142,6 +143,69 @@ textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/* Upload button styles */
+.upload-container {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 10;
+}
+
+.file-input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.upload-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.upload-button:hover {
+    transform: rotate(90deg);
+    background-color: var(--primary-hover);
+}
+
+.upload-button i {
+    font-size: 1.2rem;
+}
+
+.upload-status {
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.upload-status.show {
+    opacity: 1;
+}
+
+.upload-status.error {
+    color: #e53e3e;
+}
+
+.upload-status.success {
+    color: #38a169;
 }
 
 .buttons-container {

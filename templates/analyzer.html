@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Analyzer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body class="light-theme">
     <header class="fixed-header">
@@ -27,6 +27,13 @@
             
             <div class="input-container">
                 <textarea id="text-input" placeholder="Paste text here..."></textarea>
+                <div class="upload-container">
+                    <input type="file" id="file-upload" accept=".pdf,.doc,.docx" class="file-input" />
+                    <button id="upload-button" class="upload-button" title="Upload document (PDF or Word)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div id="upload-status" class="upload-status"></div>
             </div>
 
             <div class="buttons-container">
@@ -57,7 +64,9 @@
         </div>
     </main>
 
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/static/scripts.js"></script>
 </body>
 </html>

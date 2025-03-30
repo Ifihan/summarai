@@ -52,6 +52,130 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultText = document.getElementById('result-text');
     const textarea = document.getElementById('text-input');
     const copyButton = document.getElementById('copy-button');
+    const fileUpload = document.getElementById('file-upload');
+    const uploadButton = document.getElementById('upload-button');
+    const uploadStatus = document.getElementById('upload-status');
+
+    // File upload functionality
+    uploadButton.addEventListener('click', () => {
+        fileUpload.click();
+    });
+
+    fileUpload.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Show loading status
+        showUploadStatus('Processing document...', 'loading');
+        
+        try {
+            const text = await extractTextFromFile(file);
+            textarea.value = text;
+            showUploadStatus('Document processed successfully!', 'success');
+            
+            // Clear the status after 3 seconds
+            setTimeout(() => {
+                hideUploadStatus();
+            }, 3000);
+        } catch (error) {
+            console.error('Error extracting text:', error);
+            showUploadStatus('Failed to process document. ' + error.message, 'error');
+        }
+        
+        // Reset the file input so the same file can be selected again
+        fileUpload.value = '';
+    });
+
+    // Function to extract text from different file types
+    async function extractTextFromFile(file) {
+        const fileType = file.name.split('.').pop().toLowerCase();
+        
+        if (fileType === 'pdf') {
+            return extractTextFromPDF(file);
+        } else if (fileType === 'doc' || fileType === 'docx') {
+            return extractTextFromWord(file);
+        } else {
+            throw new Error('Unsupported file type. Please upload a PDF or Word document.');
+        }
+    }
+
+    // Extract text from PDF using PDF.js
+    async function extractTextFromPDF(file) {
+        // Set the workerSrc property for PDF.js
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            
+            fileReader.onload = async function() {
+                try {
+                    const typedArray = new Uint8Array(this.result);
+                    const loadingTask = pdfjsLib.getDocument(typedArray);
+                    
+                    const pdf = await loadingTask.promise;
+                    let fullText = '';
+                    
+                    // Extract text from each page
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const textItems = textContent.items.map(item => item.str);
+                        fullText += textItems.join(' ') + '\n\n';
+                    }
+                    
+                    resolve(fullText.trim());
+                } catch (error) {
+                    reject(new Error('Failed to extract text from PDF: ' + error.message));
+                }
+            };
+            
+            fileReader.onerror = function() {
+                reject(new Error('Failed to read the file'));
+            };
+            
+            fileReader.readAsArrayBuffer(file);
+        });
+    }
+
+    // Extract text from Word document using mammoth.js
+    async function extractTextFromWord(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
+                
+                mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+                    .then(result => {
+                        resolve(result.value);
+                    })
+                    .catch(error => {
+                        reject(new Error('Failed to extract text from Word document: ' + error.message));
+                    });
+            };
+            
+            reader.onerror = function() {
+                reject(new Error('Failed to read the file'));
+            };
+            
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    // Helper functions for upload status
+    function showUploadStatus(message, type = '') {
+        uploadStatus.textContent = message;
+        uploadStatus.className = 'upload-status show';
+        
+        if (type) {
+            uploadStatus.classList.add(type);
+        }
+    }
+
+    function hideUploadStatus() {
+        uploadStatus.className = 'upload-status';
+    }
 
     // Smooth scroll to result
     function scrollToResult() {
@@ -150,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
 
     // Add click handlers for action buttons
     actionButtons.forEach(button => {

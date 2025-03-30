@@ -73,6 +73,5 @@ http://localhost:5000
 
 ## 💡 **Future Enhancements**
 
-- Add support for PDF and DOCX file uploads.
 - Implement user authentication.
 - Introduce multi-language support.
